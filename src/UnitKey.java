@@ -1,21 +1,13 @@
 import java.util.Objects;
 
-public class BoardKey {
+public class UnitKey {
 
     private final int x;
     private final int y;
 
-    public BoardKey(int x, int y) {
+    public UnitKey(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     @Override
@@ -26,8 +18,8 @@ public class BoardKey {
         if(obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        BoardKey boardKey = (BoardKey) obj;
-        return x == boardKey.x && y == boardKey.y;
+        UnitKey unitKey = (UnitKey) obj;
+        return x == unitKey.x && y == unitKey.y;
     }
 
     @Override
