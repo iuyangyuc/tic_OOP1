@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Other {
+public class OtherGame {
 
     private Player player1;
     private Player player2;
@@ -13,9 +13,9 @@ public class Other {
     private final char X = 'X';
     private final char O = 'O';
 
-    public Other(Player player1, Player player2, List<Player> team1,
-                       List<Player> team2, HashMap<UnitKey, Unit> board,
-                       int size) {
+    public OtherGame(Player player1, Player player2, List<Player> team1,
+                     List<Player> team2, HashMap<UnitKey, Unit> board,
+                     int size) {
         this.player1 = player1;
         this.player2 = player2;
         this.team1 = team1;
@@ -24,13 +24,13 @@ public class Other {
         this.size = size;
     }
 
-    public Other(Player player1, Player player2, int size) {
+    public OtherGame(Player player1, Player player2, int size) {
         this.player1 = player1;
         this.player2 = player2;
         this.size = size;
     }
 
-    public Other(List<Player> team1, List<Player> team2, int size) {
+    public OtherGame(List<Player> team1, List<Player> team2, int size) {
         this.team1 = team1;
         this.team2 = team2;
         this.size = size;

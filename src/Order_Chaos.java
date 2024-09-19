@@ -52,74 +52,42 @@ public class Order_Chaos {
 
     public boolean checkWin() {
         for (int i = 0; i < size; i++) {
-            boolean rowWin = true;
-            char firstSymbol = board.get(new UnitKey(i, 0)).getSymbol();
-            if (firstSymbol == ' ') {
-                rowWin = false;
-            } else {
-                for (int j = 1; j < size; j++) {
-                    if (board.get(new UnitKey(i, j)).getSymbol() != firstSymbol) {
-                        rowWin = false;
-                        break;
-                    }
+            char firstRowSymbol = board.get(new UnitKey(i, 0)).getSymbol();
+            boolean rowWin = firstRowSymbol != ' ';
+            for (int j = 1; j < size && rowWin; j++) {
+                if (board.get(new UnitKey(i, j)).getSymbol() != firstRowSymbol) {
+                    rowWin = false;
                 }
             }
-            if (rowWin) {
-                return true;
+            if (rowWin) return true;
+
+            char firstColSymbol = board.get(new UnitKey(0, i)).getSymbol();
+            boolean colWin = firstColSymbol != ' ';
+            for (int j = 1; j < size && colWin; j++) {
+                if (board.get(new UnitKey(j, i)).getSymbol() != firstColSymbol) {
+                    colWin = false;
+                }
             }
+            if (colWin) return true;
         }
 
-        for (int i = 0; i < size; i++) {
-            boolean colWin = true;
-            char firstSymbol = board.get(new UnitKey(0, i)).getSymbol();
-            if (firstSymbol == ' ') {
-                colWin = false;
-            } else {
-                for (int j = 1; j < size; j++) {
-                    if (board.get(new UnitKey(j, i)).getSymbol() != firstSymbol) {
-                        colWin = false;
-                        break;
-                    }
-                }
-            }
-            if (colWin) {
-                return true;
+        char firstDiag1Symbol = board.get(new UnitKey(0, 0)).getSymbol();
+        boolean diagWin1 = firstDiag1Symbol != ' ';
+        for (int i = 1; i < size && diagWin1; i++) {
+            if (board.get(new UnitKey(i, i)).getSymbol() != firstDiag1Symbol) {
+                diagWin1 = false;
             }
         }
+        if (diagWin1) return true;
 
-        boolean diagWin1 = true;
-        char firstSymbolDiag1 = board.get(new UnitKey(0, 0)).getSymbol();
-        if (firstSymbolDiag1 == ' ') {
-            diagWin1 = false;
-        }
-        else {
-            for (int i = 1; i < size; i++) {
-                if (board.get(new UnitKey(i, i)).getSymbol() != firstSymbolDiag1) {
-                    diagWin1 = false;
-                    break;
-                }
+        char firstDiag2Symbol = board.get(new UnitKey(0, size - 1)).getSymbol();
+        boolean diagWin2 = firstDiag2Symbol != ' ';
+        for (int i = 1; i < size && diagWin2; i++) {
+            if (board.get(new UnitKey(i, size - i - 1)).getSymbol() != firstDiag2Symbol) {
+                diagWin2 = false;
             }
         }
-        if (diagWin1) {
-            return true;
-        }
-
-        boolean diagWin2 = true;
-        char firstSymbolDiag2 = board.get(new UnitKey(0, size - 1)).getSymbol();
-        if (firstSymbolDiag2 == ' ') {
-            diagWin2 = false;
-        }
-        else {
-            for (int i = 1; i < size; i++) {
-                if (board.get(new UnitKey(i, size - i - 1)).getSymbol() != firstSymbolDiag2) {
-                    diagWin2 = false;
-                    break;
-                }
-            }
-        }
-        if (diagWin2) {
-            return true;
-        }
+        if (diagWin2) return true;
 
         return false;
     }
