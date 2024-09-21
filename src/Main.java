@@ -17,6 +17,11 @@ public class Main {
             System.out.println("3. Other Game");
             int gameChoice = scanner.nextInt();
 
+            if(gameChoice < 1 || gameChoice > 3) {
+                System.out.println("Invalid choice. Please try again.");
+                continue;
+            }
+
             if (gameChoice == 3) {
                 System.out.println("Enter the size of the board: ");
                 size = scanner.nextInt();

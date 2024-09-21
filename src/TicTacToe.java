@@ -123,7 +123,7 @@ public class TicTacToe {
             System.out.println("Do you want to play again? (Y/N)");
             Scanner scanner = new Scanner(System.in);
             String response = scanner.next();
-            if (response.equals("N")) {
+            if (response.equals("N") || response.equals("n")) {
                 continueGame = false;
                 System.out.println(player1.getName() + " winrate: " +
                         player1.getWinRate());
@@ -210,7 +210,7 @@ public class TicTacToe {
             System.out.println("Do you want to play again? (Y/N)");
             Scanner scanner = new Scanner(System.in);
             String response = scanner.next();
-            if (response.equals("N")) {
+            if (response.equals("N") || response.equals("n")) {
                 continueGame = false;
                 for (Player player : team1) {
                     System.out.println(player.getName() + " winrate: " +
