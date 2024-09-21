@@ -52,32 +52,24 @@ public class TicTacToe {
 
     public boolean checkWin(){
         for(int i = 0; i < size; i++) {
-            if(board.get(new UnitKey(i, 0)).getSymbol()
-                    == board.get(new UnitKey(i, 1)).getSymbol() &&
-                    board.get(new UnitKey(i, 1)).getSymbol()
-                            == board.get(new UnitKey(i, 2)).getSymbol() &&
+            if(board.get(new UnitKey(i, 0)).getSymbol() == board.get(new UnitKey(i, 1)).getSymbol() &&
+                    board.get(new UnitKey(i, 1)).getSymbol() == board.get(new UnitKey(i, 2)).getSymbol() &&
                     board.get(new UnitKey(i, 0)).getSymbol() != ' ') {
                 return true;
             }
-            if(board.get(new UnitKey(0, i)).getSymbol()
-                    == board.get(new UnitKey(1, i)).getSymbol() &&
-                    board.get(new UnitKey(1, i)).getSymbol()
-                            == board.get(new UnitKey(2, i)).getSymbol() &&
+            if(board.get(new UnitKey(0, i)).getSymbol() == board.get(new UnitKey(1, i)).getSymbol() &&
+                    board.get(new UnitKey(1, i)).getSymbol() == board.get(new UnitKey(2, i)).getSymbol() &&
                     board.get(new UnitKey(0, i)).getSymbol() != ' ') {
                 return true;
             }
         }
-        if(board.get(new UnitKey(0, 0)).getSymbol()
-                == board.get(new UnitKey(1, 1)).getSymbol() &&
-                board.get(new UnitKey(1, 1)).getSymbol()
-                        == board.get(new UnitKey(2, 2)).getSymbol() &&
+        if(board.get(new UnitKey(0, 0)).getSymbol() == board.get(new UnitKey(1, 1)).getSymbol() &&
+                board.get(new UnitKey(1, 1)).getSymbol() == board.get(new UnitKey(2, 2)).getSymbol() &&
                 board.get(new UnitKey(0, 0)).getSymbol() != ' ') {
             return true;
         }
-        if(board.get(new UnitKey(0, 2)).getSymbol()
-                == board.get(new UnitKey(1, 1)).getSymbol() &&
-                board.get(new UnitKey(1, 1)).getSymbol()
-                        == board.get(new UnitKey(2, 0)).getSymbol() &&
+        if(board.get(new UnitKey(0, 2)).getSymbol() == board.get(new UnitKey(1, 1)).getSymbol() &&
+                board.get(new UnitKey(1, 1)).getSymbol() == board.get(new UnitKey(2, 0)).getSymbol() &&
                 board.get(new UnitKey(0, 2)).getSymbol() != ' ') {
             return true;
         }

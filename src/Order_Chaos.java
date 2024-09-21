@@ -36,6 +36,13 @@ public class Order_Chaos {
         this.size = size;
     }
 
+    public void modifyUnit(int x, int y, char symbol) {
+        UnitKey key = new UnitKey(x, y);
+        if (board.containsKey(key)) {
+            board.get(key).fill(symbol);
+        }
+    }
+
     public void displayBoard() {
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
@@ -51,43 +58,75 @@ public class Order_Chaos {
     }
 
     public boolean checkWin() {
+        int winLength = 5;
+
+        // Check rows
         for (int i = 0; i < size; i++) {
-            char firstRowSymbol = board.get(new UnitKey(i, 0)).getSymbol();
-            boolean rowWin = firstRowSymbol != ' ';
-            for (int j = 1; j < size && rowWin; j++) {
-                if (board.get(new UnitKey(i, j)).getSymbol() != firstRowSymbol) {
-                    rowWin = false;
+            for (int j = 0; j <= size - winLength; j++) {
+                char symbol = board.get(new UnitKey(i, j)).getSymbol();
+                if (symbol != ' ') {
+                    boolean win = true;
+                    for (int k = 1; k < winLength; k++) {
+                        if (board.get(new UnitKey(i, j + k)).getSymbol() != symbol) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
                 }
             }
-            if (rowWin) return true;
+        }
 
-            char firstColSymbol = board.get(new UnitKey(0, i)).getSymbol();
-            boolean colWin = firstColSymbol != ' ';
-            for (int j = 1; j < size && colWin; j++) {
-                if (board.get(new UnitKey(j, i)).getSymbol() != firstColSymbol) {
-                    colWin = false;
+        // Check columns
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i <= size - winLength; i++) {
+                char symbol = board.get(new UnitKey(i, j)).getSymbol();
+                if (symbol != ' ') {
+                    boolean win = true;
+                    for (int k = 1; k < winLength; k++) {
+                        if (board.get(new UnitKey(i + k, j)).getSymbol() != symbol) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
                 }
             }
-            if (colWin) return true;
         }
 
-        char firstDiag1Symbol = board.get(new UnitKey(0, 0)).getSymbol();
-        boolean diagWin1 = firstDiag1Symbol != ' ';
-        for (int i = 1; i < size && diagWin1; i++) {
-            if (board.get(new UnitKey(i, i)).getSymbol() != firstDiag1Symbol) {
-                diagWin1 = false;
+        // Check diagonals (top-left to bottom-right)
+        for (int i = 0; i <= size - winLength; i++) {
+            for (int j = 0; j <= size - winLength; j++) {
+                char symbol = board.get(new UnitKey(i, j)).getSymbol();
+                if (symbol != ' ') {
+                    boolean win = true;
+                    for (int k = 1; k < winLength; k++) {
+                        if (board.get(new UnitKey(i + k, j + k)).getSymbol() != symbol) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
+                }
             }
         }
-        if (diagWin1) return true;
 
-        char firstDiag2Symbol = board.get(new UnitKey(0, size - 1)).getSymbol();
-        boolean diagWin2 = firstDiag2Symbol != ' ';
-        for (int i = 1; i < size && diagWin2; i++) {
-            if (board.get(new UnitKey(i, size - i - 1)).getSymbol() != firstDiag2Symbol) {
-                diagWin2 = false;
+        // Check anti-diagonals (top-right to bottom-left)
+        for (int i = 0; i <= size - winLength; i++) {
+            for (int j = winLength - 1; j < size; j++) {
+                char symbol = board.get(new UnitKey(i, j)).getSymbol();
+                if (symbol != ' ') {
+                    boolean win = true;
+                    for (int k = 1; k < winLength; k++) {
+                        if (board.get(new UnitKey(i + k, j - k)).getSymbol() != symbol) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) return true;
+                }
             }
         }
-        if (diagWin2) return true;
 
         return false;
     }

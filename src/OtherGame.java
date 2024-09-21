@@ -36,6 +36,13 @@ public class OtherGame {
         this.size = size;
     }
 
+    public void modifyUnit(int x, int y, char symbol) {
+        UnitKey key = new UnitKey(x, y);
+        if (board.containsKey(key)) {
+            board.get(key).fill(symbol);
+        }
+    }
+
     public void displayBoard() {
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
