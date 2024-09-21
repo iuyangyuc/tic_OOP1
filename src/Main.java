@@ -29,7 +29,7 @@ public class Main {
 
             System.out.println("Do you want to play with a team? (Y/N)");
             String response = scanner.next();
-            if (response.equals("Y") || response.equals("y")) {
+            if (response.equalsIgnoreCase("Y")) {
                 team = true;
             }
 
@@ -92,7 +92,7 @@ public class Main {
 
             System.out.println("Do you want to play again? (Y/N)");
             response = scanner.next();
-            if (response.equals("N") || response.equals("n")) {
+            if (response.equalsIgnoreCase("N")) {
                 continuePlaying = false;
             }
         }
