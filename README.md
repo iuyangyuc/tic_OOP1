@@ -40,7 +40,14 @@ OtherGame game1 = new OtherGame(team1, team2, 3);
 ## How to compile and run
 ---------------------------------------------------------------------------
 <!--Your directions on how to run the code. Make sure to be as thorough as possible!-->
-
+To compile the code:
+```bash
+javac Main.java
+```
+To run the code:
+```bash
+java Main
+```
 
 
 ## Input/Output Example
