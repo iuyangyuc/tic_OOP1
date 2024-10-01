@@ -1,19 +1,20 @@
 import java.util.*;
 
-public class OtherGame implements Game{
+public class BaseTicTacToe implements TicTacToe {
 
     private Player player1;
     private Player player2;
-    Team team1;
-    Team team2;
-    private GameBoard board;
+    private Team team1;
+    private Team team2;
+    private BaseBoard board;
     private int size;
     private int turn;
 
     private final char X = 'X';
     private final char O = 'O';
 
-    public OtherGame(Player player1, Player player2, Team team1, Team team2, GameBoard board, int size) {
+    public BaseTicTacToe(Player player1, Player player2, Team team1,
+                         Team team2, BaseBoard board, int size) {
         this.player1 = player1;
         this.player2 = player2;
         this.team1 = team1;
@@ -22,21 +23,21 @@ public class OtherGame implements Game{
         this.size = size;
     }
 
-    public OtherGame(Player player1, Player player2, int size) {
+    public BaseTicTacToe(Player player1, Player player2, int size) {
         this.player1 = player1;
         this.player2 = player2;
         this.size = size;
     }
 
-    public OtherGame(Team team1, Team team2, int size) {
+    public BaseTicTacToe(Team team1, Team team2, int size) {
         this.team1 = team1;
         this.team2 = team2;
         this.size = size;
     }
 
     public void playGame_Single() {
-        board = new GameBoard(size);
         boolean continueGame = true;
+        board = new BaseBoard(size);
         while (continueGame) {
             board.displayBoard();
             turn = 1;
@@ -55,11 +56,13 @@ public class OtherGame implements Game{
                         System.out.println(player1.getName() + " wins!");
                         player1.incrementWins();
                         player2.incrementLosses();
+                        board.setWinner(1);
                     }
                     else {
                         System.out.println(player2.getName() + " wins!");
                         player2.incrementWins();
                         player1.incrementLosses();
+                        board.setWinner(2);
                     }
                     break;
                 }
@@ -72,19 +75,17 @@ public class OtherGame implements Game{
             System.out.println("Do you want to play again? (Y/N)");
             Scanner scanner = new Scanner(System.in);
             String response = scanner.next();
-            if (response.equals("N") || response.equals("n")) {
+            if (response.equalsIgnoreCase("N")) {
                 continueGame = false;
-                System.out.println(player1.getName() + " winrate: " +
-                        player1.getWinRate());
-                System.out.println(player2.getName() + " winrate: " +
-                        player2.getWinRate());
+                System.out.println(player1.getName() + " winrate: " + player1.getWinRate());
+                System.out.println(player2.getName() + " winrate: " + player2.getWinRate());
             }
         }
     }
 
     public void playGame_Team() {
         boolean continueGame = true;
-        board = new GameBoard(size);
+        board = new BaseBoard(size);
         Player currentPlayer1 = team1.randomPlayer();
         Player currentPlayer2 = team2.randomPlayer();
         while (continueGame) {
@@ -109,11 +110,13 @@ public class OtherGame implements Game{
                         System.out.println("Team 1 wins!");
                         team1.incrementWins();
                         team2.incrementLosses();
+                        board.setWinner(1);
                     }
                     else {
                         System.out.println("Team 2 wins!");
                         team2.incrementWins();
                         team1.incrementLosses();
+                        board.setWinner(2);
                     }
                     break;
                 }

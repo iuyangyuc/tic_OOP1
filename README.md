@@ -14,8 +14,8 @@ Order_Chaos.java: The class for the game Order and Chaos.
 OtherGame.java: Universal methods for n*n game.  
 Player.java: The class contains the information of a player.  
 Playerkey.java: Class for the key of player.  
-TicTacToe.java: The class for the game TicTacToe.  
-Unit.java: The class for the GameBoard unit.  
+BaseTicTacToe.java: The class for the game BaseTicTacToe.  
+Unit.java: The class for the BaseBoard unit.  
 Unitkey.java: Class for the key of unit.
 
 
@@ -54,12 +54,12 @@ java Main
 ---------------------------------------------------------------------------
 <!--Please give us a full execution of what we should see on the screen. Label each text with input and output. For example:-->
 /Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/bin/java -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=54336:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8 -classpath /Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/charsets.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/cldrdata.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/dnsns.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/jaccess.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/localedata.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/nashorn.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/sunec.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/ext/zipfs.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/jce.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/jfr.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/jsse.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/management-agent.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/resources.jar:/Users/yyc/Library/Java/JavaVirtualMachines/corretto-1.8.0_422/Contents/Home/jre/lib/rt.jar:/Users/yyc/Desktop/CS611 - OOP/assignment1/tic/out/production/tic Main
-Which game would you like to play?  
+Which game would you like to basePlay?  
 1. Tic Tac Toe  
 2. Order and Chaos  
 3. Other Game  
    1  
-   Do you want to play with a team? (Y/N)  
+   Do you want to basePlay with a team? (Y/N)  
    n  
    Enter the player1 name:  
    a  
@@ -99,18 +99,18 @@ Which game would you like to play?
    | O || X ||   |  
    | O ||   || X |  
    a wins!  
-   Do you want to play again? (Y/N)  
+   Do you want to basePlay again? (Y/N)  
    n  
    a winrate: 1.0  
    b winrate: 0.0  
-   Do you want to play again? (Y/N)  
+   Do you want to basePlay again? (Y/N)  
    y  
-   Which game would you like to play?  
+   Which game would you like to basePlay?  
 1. Tic Tac Toe  
 2. Order and Chaos  
 3. Other Game  
    1  
-   Do you want to play with a team? (Y/N)  
+   Do you want to basePlay with a team? (Y/N)  
    y  
    Enter the name of the first player in team1:  
    aa  
@@ -191,20 +191,20 @@ Which game would you like to play?
    | O || X ||   |  
    | O || X || O |  
    Team 1 wins!  
-   Do you want to play again? (Y/N)  
+   Do you want to basePlay again? (Y/N)  
    n  
    aa winrate: 1.0  
    bb winrate: 1.0  
    cc winrate: 0.0  
    dd winrate: 0.0  
-   Do you want to play again? (Y/N)  
+   Do you want to basePlay again? (Y/N)  
    y  
-   Which game would you like to play?   
+   Which game would you like to basePlay?   
 1. Tic Tac Toe  
 2. Order and Chaos  
 3. Other Game  
    1  
-   Do you want to play with a team? (Y/N)  
+   Do you want to basePlay with a team? (Y/N)  
    y  
    Enter the name of the first player in team1:  
    aa  
@@ -292,11 +292,11 @@ Which game would you like to play?
    | O || X || X |  
    | X || O || X |  
    Team 1 wins!  
-   Do you want to play again? (Y/N)  
+   Do you want to basePlay again? (Y/N)  
    n  
    aa winrate: 1.0  
    bb winrate: 1.0  
    cc winrate: 0.0  
    dd winrate: 0.0  
-   Do you want to play again? (Y/N)  
+   Do you want to basePlay again? (Y/N)  
    n  
