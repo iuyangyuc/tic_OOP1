@@ -90,22 +90,22 @@ public class Play {
         }
     }
 
-public int takeValidInput() {
-    Scanner scanner = new Scanner(System.in);
-    int gameChoice = 0;
-    while (true) {
-        String input = scanner.next();
-        try {
-            gameChoice = Integer.parseInt(input);
-            if (gameChoice >= 1 && gameChoice <= 3) {
-                break;
-            } else {
-                System.out.println("Invalid choice. Please try again.");
+    public int takeValidInput() {
+        Scanner scanner = new Scanner(System.in);
+        int gameChoice = 0;
+        while (true) {
+            String input = scanner.next();
+            try {
+                gameChoice = Integer.parseInt(input);
+                if (gameChoice >= 1 && gameChoice <= 3) {
+                    break;
+                } else {
+                    System.out.println("Invalid choice. Please try again.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number between 1 and 3.");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a number between 1 and 3.");
         }
+        return gameChoice;
     }
-    return gameChoice;
-}
 }
