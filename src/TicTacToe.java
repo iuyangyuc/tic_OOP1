@@ -1,21 +1,20 @@
 import java.util.*;
 
-public class TicTacToe {
+public class TicTacToe implements Game {
 
     private Player player1;
     private Player player2;
-    private List<Player> team1 = new ArrayList<>();
-    private List<Player> team2 = new ArrayList<>();
-    private HashMap<UnitKey, Unit> board = new HashMap<>();
+    private Team team1;
+    private Team team2;
+    private GameBoard board;
     private int size;
     private int turn;
 
     private final char X = 'X';
     private final char O = 'O';
 
-    public TicTacToe(Player player1, Player player2, List<Player> team1,
-                     List<Player> team2, HashMap<UnitKey, Unit> board,
-                     int size) {
+    public TicTacToe(Player player1, Player player2, Team team1,
+                     Team team2, GameBoard board, int size) {
         this.player1 = player1;
         this.player2 = player2;
         this.team1 = team1;
@@ -30,78 +29,29 @@ public class TicTacToe {
         this.size = size;
     }
 
-    public TicTacToe(List<Player> team1, List<Player> team2, int size) {
+    public TicTacToe(Team team1, Team team2, int size) {
         this.team1 = team1;
         this.team2 = team2;
         this.size = size;
     }
 
-    public void displayBoard() {
-        for(int i = 0; i < size; i++) {
-            for(int j = 0; j < size; j++) {
-                UnitKey key = new UnitKey(i, j);
-                if(board.containsKey(key)) {
-                    System.out.print("| " + board.get(key).getSymbol()+ " |");
-                } else {
-                    System.out.print(' ');
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    public boolean checkWin(){
-        for(int i = 0; i < size; i++) {
-            if(board.get(new UnitKey(i, 0)).getSymbol() == board.get(new UnitKey(i, 1)).getSymbol() &&
-                    board.get(new UnitKey(i, 1)).getSymbol() == board.get(new UnitKey(i, 2)).getSymbol() &&
-                    board.get(new UnitKey(i, 0)).getSymbol() != ' ') {
-                return true;
-            }
-            if(board.get(new UnitKey(0, i)).getSymbol() == board.get(new UnitKey(1, i)).getSymbol() &&
-                    board.get(new UnitKey(1, i)).getSymbol() == board.get(new UnitKey(2, i)).getSymbol() &&
-                    board.get(new UnitKey(0, i)).getSymbol() != ' ') {
-                return true;
-            }
-        }
-        if(board.get(new UnitKey(0, 0)).getSymbol() == board.get(new UnitKey(1, 1)).getSymbol() &&
-                board.get(new UnitKey(1, 1)).getSymbol() == board.get(new UnitKey(2, 2)).getSymbol() &&
-                board.get(new UnitKey(0, 0)).getSymbol() != ' ') {
-            return true;
-        }
-        if(board.get(new UnitKey(0, 2)).getSymbol() == board.get(new UnitKey(1, 1)).getSymbol() &&
-                board.get(new UnitKey(1, 1)).getSymbol() == board.get(new UnitKey(2, 0)).getSymbol() &&
-                board.get(new UnitKey(0, 2)).getSymbol() != ' ') {
-            return true;
-        }
-        return false;
-    }
-
-    public void setupGame() {
-        for(int i = 0; i < size; i++) {
-            for(int j = 0; j < size; j++) {
-                Unit unit = new Unit(i, j);
-                board.put(new UnitKey(i, j), unit);
-            }
-        }
-    }
-
     public void playGame_Single() {
         boolean continueGame = true;
+        board = new GameBoard(size);
         while (continueGame) {
-            setupGame();
-            displayBoard();
+            board.displayBoard();
             turn = 1;
             while (true) {
                 if (turn % 2 == 1) {
                     System.out.println(player1.getName() + "'s turn");
-                    player1.play(board, X);
+                    board.fillUnit(player1.getSymbol());
                 }
                 else {
                     System.out.println(player2.getName() + "'s turn");
-                    player2.play(board, O);
+                    board.fillUnit(player2.getSymbol());
                 }
-                displayBoard();
-                if (checkWin()) {
+                board.displayBoard();
+                if (board.checkWin()) {
                     if (turn % 2 == 1) {
                         System.out.println(player1.getName() + " wins!");
                         player1.incrementWins();
@@ -133,71 +83,38 @@ public class TicTacToe {
         }
     }
 
-    private Player switchPlayer(List<Player> team, Player currentPlayer) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the player name to switch to, " +
-                "or 'N' for no switch:");
-        String input = scanner.next();
-
-        if (input.equalsIgnoreCase("N")) {
-            return currentPlayer;
-        }
-
-        for (Player player : team) {
-            if (player.getName().equals(input)) {
-                return player;
-            }
-        }
-
-        // If no player was found, print error and retry
-        System.out.println("Player not found. Try again.");
-        return switchPlayer(team, currentPlayer);
-    }
-
-
-    //for team game, press S to switch player in the same team
     public void playGame_Team() {
         boolean continueGame = true;
-        Random rand = new Random();
-        Player currentPlayer1 = team1.get(rand.nextInt(team1.size()));
-        Player currentPlayer2 = team2.get(rand.nextInt(team2.size()));
+        board = new GameBoard(size);
+        Player currentPlayer1 = team1.randomPlayer();
+        Player currentPlayer2 = team2.randomPlayer();
         while (continueGame) {
-            setupGame();
-            displayBoard();
+            board.displayBoard();
             turn = 1;
             System.out.println("Team1's player: " + currentPlayer1.getName());
             System.out.println("Team2's player: " + currentPlayer2.getName());
             while (true) {
                 if (turn % 2 == 1) {
-                    currentPlayer1 = switchPlayer(team1, currentPlayer1);
+                    currentPlayer1 = team1.switchPlayer(team1, currentPlayer1);
                     System.out.println(currentPlayer1.getName() + "'s turn");
-                    currentPlayer1.play(board, X);
+                    board.fillUnit(currentPlayer1.getSymbol());
                 }
                 else {
-                    currentPlayer2 = switchPlayer(team2, currentPlayer2);
+                    currentPlayer2 = team2.switchPlayer(team2, currentPlayer2);
                     System.out.println(currentPlayer2.getName() + "'s turn");
-                    currentPlayer2.play(board, O);
+                    board.fillUnit(currentPlayer2.getSymbol());
                 }
-                displayBoard();
-                if (checkWin()) {
+                board.displayBoard();
+                if (board.checkWin()) {
                     if (turn % 2 == 1) {
                         System.out.println("Team 1 wins!");
-                        for (Player player : team1) {
-                            player.incrementWins();
-                        }
-                        for (Player player : team2) {
-                            player.incrementLosses();
-                        }
+                        team1.incrementWins();
+                        team2.incrementLosses();
                     }
                     else {
                         System.out.println("Team 2 wins!");
-                        for (Player player : team2) {
-                            player.incrementWins();
-                        }
-                        for (Player player : team1) {
-                            player.incrementLosses();
-                        }
+                        team2.incrementWins();
+                        team1.incrementLosses();
                     }
                     break;
                 }
@@ -212,14 +129,8 @@ public class TicTacToe {
             String response = scanner.next();
             if (response.equalsIgnoreCase("N")) {
                 continueGame = false;
-                for (Player player : team1) {
-                    System.out.println(player.getName() + " winrate: " +
-                            player.getWinRate());
-                }
-                for (Player player : team2) {
-                    System.out.println(player.getName() + " winrate: " +
-                            player.getWinRate());
-                }
+                team1.printWinRate();
+                team2.printWinRate();
             }
         }
     }

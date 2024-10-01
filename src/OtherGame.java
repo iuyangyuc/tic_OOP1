@@ -1,21 +1,19 @@
 import java.util.*;
 
-public class OtherGame {
+public class OtherGame implements Game{
 
     private Player player1;
     private Player player2;
-    private List<Player> team1 = new ArrayList<>();
-    private List<Player> team2 = new ArrayList<>();
-    private HashMap<UnitKey, Unit> board = new HashMap<>();
+    Team team1;
+    Team team2;
+    private GameBoard board;
     private int size;
     private int turn;
 
     private final char X = 'X';
     private final char O = 'O';
 
-    public OtherGame(Player player1, Player player2, List<Player> team1,
-                     List<Player> team2, HashMap<UnitKey, Unit> board,
-                     int size) {
+    public OtherGame(Player player1, Player player2, Team team1, Team team2, GameBoard board, int size) {
         this.player1 = player1;
         this.player2 = player2;
         this.team1 = team1;
@@ -30,133 +28,29 @@ public class OtherGame {
         this.size = size;
     }
 
-    public OtherGame(List<Player> team1, List<Player> team2, int size) {
+    public OtherGame(Team team1, Team team2, int size) {
         this.team1 = team1;
         this.team2 = team2;
         this.size = size;
     }
 
-    public void modifyUnit(int x, int y, char symbol) {
-        UnitKey key = new UnitKey(x, y);
-        if (board.containsKey(key)) {
-            board.get(key).fill(symbol);
-        }
-    }
-
-    public void displayBoard() {
-        for(int i = 0; i < size; i++) {
-            for(int j = 0; j < size; j++) {
-                UnitKey key = new UnitKey(i, j);
-                if(board.containsKey(key)) {
-                    System.out.print("| " + board.get(key).getSymbol()+ " |");
-                } else {
-                    System.out.print(' ');
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    public boolean checkWin() {
-        for (int i = 0; i < size; i++) {
-            boolean rowWin = true;
-            char firstSymbol = board.get(new UnitKey(i, 0)).getSymbol();
-            if (firstSymbol == ' ') {
-                rowWin = false;
-            } else {
-                for (int j = 1; j < size; j++) {
-                    if (board.get(new UnitKey(i, j)).getSymbol() != firstSymbol) {
-                        rowWin = false;
-                        break;
-                    }
-                }
-            }
-            if (rowWin) {
-                return true;
-            }
-        }
-
-        for (int i = 0; i < size; i++) {
-            boolean colWin = true;
-            char firstSymbol = board.get(new UnitKey(0, i)).getSymbol();
-            if (firstSymbol == ' ') {
-                colWin = false;
-            } else {
-                for (int j = 1; j < size; j++) {
-                    if (board.get(new UnitKey(j, i)).getSymbol() != firstSymbol) {
-                        colWin = false;
-                        break;
-                    }
-                }
-            }
-            if (colWin) {
-                return true;
-            }
-        }
-
-        boolean diagWin1 = true;
-        char firstSymbolDiag1 = board.get(new UnitKey(0, 0)).getSymbol();
-        if (firstSymbolDiag1 == ' ') {
-            diagWin1 = false;
-        }
-        else {
-            for (int i = 1; i < size; i++) {
-                if (board.get(new UnitKey(i, i)).getSymbol() != firstSymbolDiag1) {
-                    diagWin1 = false;
-                    break;
-                }
-            }
-        }
-        if (diagWin1) {
-            return true;
-        }
-
-        boolean diagWin2 = true;
-        char firstSymbolDiag2 = board.get(new UnitKey(0, size - 1)).getSymbol();
-        if (firstSymbolDiag2 == ' ') {
-            diagWin2 = false;
-        }
-        else {
-            for (int i = 1; i < size; i++) {
-                if (board.get(new UnitKey(i, size - i - 1)).getSymbol() != firstSymbolDiag2) {
-                    diagWin2 = false;
-                    break;
-                }
-            }
-        }
-        if (diagWin2) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public void setupGame() {
-        for(int i = 0; i < size; i++) {
-            for(int j = 0; j < size; j++) {
-                Unit unit = new Unit(i, j);
-                board.put(new UnitKey(i, j), unit);
-            }
-        }
-    }
-
     public void playGame_Single() {
+        board = new GameBoard(size);
         boolean continueGame = true;
         while (continueGame) {
-            setupGame();
-            displayBoard();
+            board.displayBoard();
             turn = 1;
             while (true) {
                 if (turn % 2 == 1) {
                     System.out.println(player1.getName() + "'s turn");
-                    player1.play(board, X);
+                    board.fillUnit(player1.getSymbol());
                 }
                 else {
                     System.out.println(player2.getName() + "'s turn");
-                    player2.play(board, O);
+                    board.fillUnit(player2.getSymbol());
                 }
-                displayBoard();
-                if (checkWin()) {
+                board.displayBoard();
+                if (board.checkWin()) {
                     if (turn % 2 == 1) {
                         System.out.println(player1.getName() + " wins!");
                         player1.incrementWins();
@@ -188,65 +82,38 @@ public class OtherGame {
         }
     }
 
-    private Player switchPlayer(List<Player> team, Player currentPlayer) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the player name to switch to, " +
-                "or 'N' for no switch:");
-        String input = scanner.next();
-        if (input.equalsIgnoreCase("N")) {
-            return currentPlayer;
-        }
-        for (Player player : team) {
-            if (player.getName().equals(input)) {
-                return player;
-            }
-        }
-        System.out.println("Player not found. Try again.");
-        return switchPlayer(team, currentPlayer);
-    }
-
-
     public void playGame_Team() {
         boolean continueGame = true;
-        Random rand = new Random();
-        Player currentPlayer1 = team1.get(rand.nextInt(team1.size()));
-        Player currentPlayer2 = team2.get(rand.nextInt(team2.size()));
+        board = new GameBoard(size);
+        Player currentPlayer1 = team1.randomPlayer();
+        Player currentPlayer2 = team2.randomPlayer();
         while (continueGame) {
-            setupGame();
-            displayBoard();
+            board.displayBoard();
             turn = 1;
             System.out.println("Team1's player: " + currentPlayer1.getName());
             System.out.println("Team2's player: " + currentPlayer2.getName());
             while (true) {
                 if (turn % 2 == 1) {
-                    currentPlayer1 = switchPlayer(team1, currentPlayer1);
+                    currentPlayer1 = team1.switchPlayer(team1, currentPlayer1);
                     System.out.println(currentPlayer1.getName() + "'s turn");
-                    currentPlayer1.play(board, X);
+                    board.fillUnit(currentPlayer1.getSymbol());
                 }
                 else {
-                    currentPlayer2 = switchPlayer(team2, currentPlayer2);
+                    currentPlayer2 = team2.switchPlayer(team2, currentPlayer2);
                     System.out.println(currentPlayer2.getName() + "'s turn");
-                    currentPlayer2.play(board, O);
+                    board.fillUnit(currentPlayer2.getSymbol());
                 }
-                displayBoard();
-                if (checkWin()) {
+                board.displayBoard();
+                if (board.checkWin()) {
                     if (turn % 2 == 1) {
                         System.out.println("Team 1 wins!");
-                        for (Player player : team1) {
-                            player.incrementWins();
-                        }
-                        for (Player player : team2) {
-                            player.incrementLosses();
-                        }
+                        team1.incrementWins();
+                        team2.incrementLosses();
                     }
                     else {
                         System.out.println("Team 2 wins!");
-                        for (Player player : team2) {
-                            player.incrementWins();
-                        }
-                        for (Player player : team1) {
-                            player.incrementLosses();
-                        }
+                        team2.incrementWins();
+                        team1.incrementLosses();
                     }
                     break;
                 }
@@ -261,14 +128,8 @@ public class OtherGame {
             String response = scanner.next();
             if (response.equalsIgnoreCase("N")) {
                 continueGame = false;
-                for (Player player : team1) {
-                    System.out.println(player.getName() + " winrate: " +
-                            player.getWinRate());
-                }
-                for (Player player : team2) {
-                    System.out.println(player.getName() + " winrate: " +
-                            player.getWinRate());
-                }
+                team1.printWinRate();
+                team2.printWinRate();
             }
         }
     }

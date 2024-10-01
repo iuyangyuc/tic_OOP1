@@ -17,27 +17,6 @@ public class Player {
         return (double) wins / (wins + losses);
     }
 
-    public void play(HashMap<UnitKey, Unit> board, char symbol) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the row and column number (0-2) separated " +
-                "by a space:");
-        int row = scanner.nextInt();
-        int col = scanner.nextInt();
-        UnitKey key = new UnitKey(row, col);
-        if(board.containsKey(key)) {
-            Unit unit = board.get(key);
-            if(!unit.isFilled()) {
-                unit.fill(symbol);
-            } else {
-                System.out.println("This unit is already filled. Try again.");
-                play(board, symbol);
-            }
-        } else {
-            System.out.println("Invalid row and column number. Try again.");
-            play(board, symbol);
-        }
-    }
-
     public String getName() {
         return name;
     }
