@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameBoard {
@@ -46,26 +47,31 @@ public class GameBoard {
         }
     }
 
-    public void fillUnit(char symbol) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the row and column number (0-2) separated " +
-                "by a space:");
-        int row = scanner.nextInt();
-        int col = scanner.nextInt();
-        UnitKey key = new UnitKey(row, col);
-        if(board.containsKey(key)) {
-            Unit unit = board.get(key);
-            if(!unit.isFilled()) {
-                unit.fill(symbol);
+public void fillUnit(char symbol) {
+    Scanner scanner = new Scanner(System.in);
+    while (true) {
+        try {
+            System.out.println("Enter the row and column number (0-" + (size - 1) + ") separated by a space:");
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+            UnitKey key = new UnitKey(row, col);
+            if (board.containsKey(key)) {
+                Unit unit = board.get(key);
+                if (!unit.isFilled()) {
+                    unit.fill(symbol);
+                    break;
+                } else {
+                    System.out.println("This unit is already filled. Try again.");
+                }
             } else {
-                System.out.println("This unit is already filled. Try again.");
-                fillUnit(symbol);
+                System.out.println("Invalid row and column number. Try again.");
             }
-        } else {
-            System.out.println("Invalid row and column number. Try again.");
-            fillUnit(symbol);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter valid integers for row and column.");
+            scanner.next(); // Clear the invalid input
         }
     }
+}
 
     public boolean checkWin() {
         for (int i = 0; i < size; i++) {
