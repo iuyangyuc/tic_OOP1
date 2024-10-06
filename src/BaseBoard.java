@@ -6,18 +6,18 @@ public class BaseBoard implements Board {
 
     private int size;
     private HashMap<UnitKey, Unit> board = new HashMap<>();
-    private int winner;
+    private char winner;
 
     public BaseBoard(int size) {
         this.size = size;
         setBoard(size);
     }
 
-    public int getWinner() {
+    public char getWinner() {
         return winner;
     }
 
-    public void setWinner(int winner) {
+    public void setWinner(char winner) {
         this.winner = winner;
     }
 
@@ -158,5 +158,69 @@ public class BaseBoard implements Board {
             Unit unit = board.get(key);
             unit.fill(symbol);
         }
+    }
+
+    public char getWinningSymbol() {
+        for (int i = 0; i < size; i++) {
+            char firstSymbol = board.get(new UnitKey(i, 0)).getSymbol();
+            if (firstSymbol != ' ') {
+                boolean rowWin = true;
+                for (int j = 1; j < size; j++) {
+                    if (board.get(new UnitKey(i, j)).getSymbol() != firstSymbol) {
+                        rowWin = false;
+                        break;
+                    }
+                }
+                if (rowWin) {
+                    return firstSymbol;
+                }
+            }
+        }
+
+        for (int i = 0; i < size; i++) {
+            char firstSymbol = board.get(new UnitKey(0, i)).getSymbol();
+            if (firstSymbol != ' ') {
+                boolean colWin = true;
+                for (int j = 1; j < size; j++) {
+                    if (board.get(new UnitKey(j, i)).getSymbol() != firstSymbol) {
+                        colWin = false;
+                        break;
+                    }
+                }
+                if (colWin) {
+                    return firstSymbol;
+                }
+            }
+        }
+
+        char firstSymbolDiag1 = board.get(new UnitKey(0, 0)).getSymbol();
+        if (firstSymbolDiag1 != ' ') {
+            boolean diagWin1 = true;
+            for (int i = 1; i < size; i++) {
+                if (board.get(new UnitKey(i, i)).getSymbol() != firstSymbolDiag1) {
+                    diagWin1 = false;
+                    break;
+                }
+            }
+            if (diagWin1) {
+                return firstSymbolDiag1;
+            }
+        }
+
+        char firstSymbolDiag2 = board.get(new UnitKey(0, size - 1)).getSymbol();
+        if (firstSymbolDiag2 != ' ') {
+            boolean diagWin2 = true;
+            for (int i = 1; i < size; i++) {
+                if (board.get(new UnitKey(i, size - i - 1)).getSymbol() != firstSymbolDiag2) {
+                    diagWin2 = false;
+                    break;
+                }
+            }
+            if (diagWin2) {
+                return firstSymbolDiag2;
+            }
+        }
+
+        return '\0';
     }
 }

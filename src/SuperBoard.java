@@ -4,16 +4,31 @@ import java.util.Scanner;
 public class SuperBoard implements Board{
 
     private HashMap<Integer, BaseBoard> superBoard;
-    private SuperPlay tool;
+    private Play tool;
+
+    public SuperBoard() {
+        superBoard = new HashMap<>();
+        tool = new Play();
+        setBoard(3);
+    }
 
     public void displayBoard() {
         for (int i = 0; i < 9; i++) {
             BaseBoard board = superBoard.get(i);
+            System.out.println("Board " + i + ":");
             board.displayBoard();
         }
     }
 
+    private void buildWinningBoard() {
+        for (int i = 0; i < 9; i++) {
+            BaseBoard board = superBoard.get(i);
+            board.setWinner(board.getWinningSymbol());
+        }
+    }
+
     public boolean checkWin() {
+        buildWinningBoard();
         for (int i = 0; i < 3; i++) {
             if (superBoard.get(i * 3).checkWin() &&
                 superBoard.get(i * 3).getWinner() == superBoard.get(i * 3 + 1).getWinner() &&
@@ -47,14 +62,14 @@ public class SuperBoard implements Board{
 
     public void fillUnit(char symbol) {
         System.out.println("Enter which board you would like to play on (0-8): ");
-        int boardNum = tool.takeValidInput();
+        int boardNum = tool.takeValidInput(0, 8);
         BaseBoard board = superBoard.get(boardNum);
         board.fillUnit(symbol);
     }
 
     public void modifyUnit(int row, int col, char symbol) {
         System.out.println("Enter which board you would like to play on (0-8): ");
-        int boardNum = tool.takeValidInput();
+        int boardNum = tool.takeValidInput(0, 8);
         BaseBoard board = superBoard.get(boardNum);
         board.modifyUnit(row, col, symbol);
     }
