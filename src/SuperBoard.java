@@ -61,14 +61,14 @@ public class SuperBoard implements Board{
     }
 
     public void fillUnit(char symbol) {
-        System.out.println("Enter which board you would like to play on (0-8): ");
+        System.out.println("Enter which baseBoard you would like to play on (0-8): ");
         int boardNum = tool.takeValidInput(0, 8);
         BaseBoard board = superBoard.get(boardNum);
         board.fillUnit(symbol);
     }
 
     public void modifyUnit(int row, int col, char symbol) {
-        System.out.println("Enter which board you would like to play on (0-8): ");
+        System.out.println("Enter which baseBoard you would like to play on (0-8): ");
         int boardNum = tool.takeValidInput(0, 8);
         BaseBoard board = superBoard.get(boardNum);
         board.modifyUnit(row, col, symbol);

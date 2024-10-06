@@ -34,6 +34,8 @@ public class Play {
                         baseTicTacToe.playGame_Single();
                         break;
                     case 2:
+                        Order_Chaos order_chaos = new Order_Chaos(player1, player2, 6);
+                        order_chaos.playGame_Single();
                         break;
                     case 3:
                         SuperTicTacToe superTicTacToe = new SuperTicTacToe(player1, player2);
@@ -63,6 +65,8 @@ public class Play {
                         baseTicTacToe.playGame_Team();
                         break;
                     case 2:
+                        Order_Chaos order_chaos = new Order_Chaos(team1, team2, 6);
+                        order_chaos.playGame_Team();
                         break;
                     case 3:
                         SuperTicTacToe superTicTacToe = new SuperTicTacToe(team1, team2);
