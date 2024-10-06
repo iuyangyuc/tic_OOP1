@@ -8,15 +8,21 @@
 ## Files
 ---------------------------------------------------------------------------
 
-<!--This section should be all of the source code files that have a .java extension. You should also include a brief description of what the class does.  
-Main.java: Main method, run the game.-->
-Order_Chaos.java: The class for the game Order and Chaos.  
-OtherGame.java: Universal methods for n*n game.  
-Player.java: The class contains the information of a player.  
-Playerkey.java: Class for the key of player.  
-BaseTicTacToe.java: The class for the game BaseTicTacToe.  
-Unit.java: The class for the BaseBoard unit.  
-Unitkey.java: Class for the key of unit.
+<!--This section should be all of the source code files that have a .java extension. You should also include a brief description of what the class does.  -->
+BaseBoard.java: The base class for all boards, which contains the basic functions of a board, like checking if a unit is filled, filling a unit, and checking if the board is full.  
+Board.java: The interface for all boards, which contains the basic functions of a board.
+Order_Chaos.java: The class for the Order and Chaos game, which is a 6*6 game board.  
+PlayerKey.java: 
+SuperBoard.java         
+Team.java               
+Unit.java
+BaseTicTacToe.java      
+Main.java               
+Play.java               
+Player.java             
+SuperTicTacToe.java     
+TicTacToe.java          
+UnitKey.java
 
 
 ## Notes

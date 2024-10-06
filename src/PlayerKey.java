@@ -1,8 +1,8 @@
-public class PlayKey {
+public class PlayerKey {
 
     private final String name;
 
-    public PlayKey(String name) {
+    public PlayerKey(String name) {
         this.name = name;
     }
 
@@ -14,7 +14,7 @@ public class PlayKey {
         if(obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        PlayKey playKey = (PlayKey) obj;
+        PlayerKey playKey = (PlayerKey) obj;
         return name.equals(playKey.name);
     }
 }
