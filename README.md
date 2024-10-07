@@ -41,7 +41,7 @@ OtherGame game1 = new OtherGame(team1, team2, 3);
 2. Team number switching is supported during team game. 'N' for not switching, or enter the name of the player to switch.
 3. For future functions, like learning and intelligence, Unit data can be easily accessed and expended, since unit is a separate class and indexed by x and y keys. 
 4. All other games on a n*n subboard hava the same condition of winning, which is to have n units in a row, column or diagonal, or draw when the subboard is full.
-
+5. For all Y/N question, changes will be made only when user imput prompt choice, all other inputs will be ignored. So there is no input check to check user is actually inputting Y or N.
 
 ## How to compile and run
 ---------------------------------------------------------------------------
