@@ -1,3 +1,7 @@
+/*
+    * This class represents a unit in the grid. It has a position (x, y), a symbol, and a boolean to check if it is filled.
+ */
+
 public class Unit {
 
     private int x;

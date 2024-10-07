@@ -1,5 +1,11 @@
 import java.util.*;
 
+/*
+BaseTicTacToe is a class that implements the TicTacToe interface.
+It is a base class that can be extended to create different types of TicTacToe games.
+It contains the basic functionality of a TicTacToe game, such as playing the game, checking for a win, and displaying the board.
+ */
+
 public class BaseTicTacToe implements TicTacToe {
 
     private Player player1;

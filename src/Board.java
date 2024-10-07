@@ -1,3 +1,8 @@
+
+/*
+Interface for the Board class
+ */
+
 public interface Board {
     public void displayBoard();
     public boolean checkWin();

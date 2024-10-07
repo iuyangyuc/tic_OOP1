@@ -1,6 +1,10 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+
+/*
+SuperBoard class to store and manipulate the super board for the Super Tic Tac Toe game.
+ */
 public class SuperBoard implements Board{
 
     private HashMap<Integer, BaseBoard> superBoard;

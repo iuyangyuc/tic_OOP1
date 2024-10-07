@@ -2,6 +2,11 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
+/*
+Game board for based tic tac toe.
+Contains base board and methods to manipulate the board.
+ */
 public class BaseBoard implements Board {
 
     private int size;

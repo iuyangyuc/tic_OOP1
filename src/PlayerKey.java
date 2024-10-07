@@ -1,3 +1,8 @@
+
+/*
+    * PlayerKey class is used to create a key for the player object.
+ */
+
 public class PlayerKey {
 
     private final String name;

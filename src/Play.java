@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/*
+Play class to start the game.
+ */
+
 public class Play {
 
     public void start() {

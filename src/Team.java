@@ -2,6 +2,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+Team class to store, get and manipulate team information.
+ */
+
 public class Team {
 
     private Player player1;

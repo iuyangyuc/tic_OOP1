@@ -1,6 +1,10 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+/*
+Player class to store and get player information.
+ */
+
 public class Player {
 
     private String name;

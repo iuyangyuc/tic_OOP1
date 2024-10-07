@@ -1,6 +1,10 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+
+/*
+Game logic for Super Tic Tac Toe. It can be played with a single player or with teams.
+ */
 public class SuperTicTacToe implements TicTacToe {
 
     private Player player1;

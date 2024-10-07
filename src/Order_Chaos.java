@@ -1,5 +1,11 @@
 import java.util.*;
 
+/*
+Order and Chaos game implementation.
+Contains the logic for playing the game, for single player and team games.
+ */
+
+
 public class Order_Chaos implements TicTacToe {
 
     private Player player1;

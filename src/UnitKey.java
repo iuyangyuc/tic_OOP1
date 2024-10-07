@@ -1,5 +1,9 @@
 import java.util.Objects;
 
+/*
+UnitKey class to store and get the x and y coordinates of a unit.
+ */
+
 public class UnitKey {
 
     private final int x;
